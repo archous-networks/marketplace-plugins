@@ -1,0 +1,18 @@
+{
+    "plugins": [
+        {
+            "name": "provisioner-v3",
+            "displayName": "IP Provisioner",
+            "description": "UISP Plugin for IP Provisioning. Pushes service state to Nautobot and runs provisioning Jobs there.",
+            "url": "https://github.com/archous-networks/provisioner-v3",
+            "version": "3.0.12",
+            "author": "Ryan Spaeth",
+            "zipUrl": "https://github.com/archous-networks/marketplace-plugins/raw/1ca680ddba957480f897cd775bec06e1124bc34a/plugins/provisioner-v3/provisioner-v3.zip",
+            "sha256": "71ef71d6cc5ddcfba7cc52902a4c4387d85718ccde73b1c892d3a2fe1ec7c3e5",
+            "unmsVersionCompliancy": {
+                "min": "1.0.0-beta7",
+                "max": null
+            }
+        }
+    ]
+}
