@@ -5,11 +5,11 @@
             "displayName": "Archous Marketplace",
             "description": "Installs and updates Archous plugins from the marketplace catalogue.",
             "url": "https://github.com/archous-networks/marketplace",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "author": "Ryan Spaeth",
             "dependencies": [],
-            "zipUrl": "https://github.com/archous-networks/marketplace-plugins/raw/13daedd0bd7ab918c9b4dd8b925ac210107c5ea6/plugins/marketplace/marketplace.zip",
-            "sha256": "fe45165e4073e22f9a0595fc7702a5b089b4f8082be8b52e1bacc71487be22fe",
+            "zipUrl": "https://github.com/archous-networks/marketplace-plugins/raw/c1854236d0cb276e127714959c970a223446c6fc/plugins/marketplace/marketplace.zip",
+            "sha256": "9f64fe5ea076f4656fb0fdf5fb0cf4c37bfe7d9f0496bb8e1a36f9940b42393e",
             "unmsVersionCompliancy": {
                 "min": "1.0.0-beta7",
                 "max": null
@@ -25,7 +25,7 @@
             "dependencies": [
                 "marketplace"
             ],
-            "zipUrl": "https://github.com/archous-networks/marketplace-plugins/raw/13daedd0bd7ab918c9b4dd8b925ac210107c5ea6/plugins/provisioner-v3/provisioner-v3.zip",
+            "zipUrl": "https://github.com/archous-networks/marketplace-plugins/raw/c1854236d0cb276e127714959c970a223446c6fc/plugins/provisioner-v3/provisioner-v3.zip",
             "sha256": "e39545ce1b0de23c92fa3d70b37960e35c8982b0b79404d76c26627a3a282733",
             "unmsVersionCompliancy": {
                 "min": "1.0.0-beta7",
