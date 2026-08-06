@@ -1,0 +1,6 @@
+{
+    "//": "Which plugins need which. Merged into plugins.json by bin/publish.sh as each entry's `dependencies`. Names not listed here get []. This lives OUTSIDE plugins.json because that file is regenerated from the published ZIPs on every release — a value hand-edited there would not survive. manifest.json is not an option either: UISP validates it against its own schema and has no dependency concept.",
+    "dependencies": {
+        "provisioner-v3": ["marketplace"]
+    }
+}

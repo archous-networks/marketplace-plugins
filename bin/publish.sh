@@ -22,8 +22,9 @@ cd "$ROOT"
 
 REPO_SLUG="${REPO_SLUG:-archous-networks/marketplace-plugins}"
 
-die() { printf '\033[31m%s\033[0m\n' "$*" >&2; exit 1; }
-ok()  { printf '\033[32m%s\033[0m\n' "$*"; }
+die()  { printf '\033[31m%s\033[0m\n' "$*" >&2; exit 1; }
+ok()   { printf '\033[32m%s\033[0m\n' "$*"; }
+warn() { printf '\033[33m%s\033[0m\n' "$*"; }
 
 stage() {
     local name="$1" zip="$2"
@@ -55,6 +56,12 @@ index() {
         $root = $argv[1]; $slug = $argv[2]; $sha = $argv[3];
         $out = [];
 
+        // Hand-maintained, and the ONLY hand-maintained input to this file —
+        // everything else below is read out of the published archives. See
+        // dependencies.json for why it is not kept in plugins.json itself.
+        $deps = json_decode((string) @file_get_contents("$root/dependencies.json"), true);
+        $deps = is_array($deps["dependencies"] ?? null) ? $deps["dependencies"] : [];
+
         foreach (glob("$root/plugins/*/*.zip") as $zipPath) {
             $z = new ZipArchive;
             if ($z->open($zipPath) !== true) { continue; }
@@ -74,6 +81,9 @@ index() {
                 "url"         => $i["url"] ?? "",
                 "version"     => $i["version"] ?? "0.0.0",
                 "author"      => $i["author"] ?? "",
+                // Other Archous plugins this one needs. The marketplace installs
+                // them first and refuses to remove them while this is installed.
+                "dependencies" => array_values(array_map("strval", (array) ($deps[$name] ?? []))),
                 // zipUrl pins the SHA so a published version means one exact
                 // byte sequence, permanently — a branch URL would not.
                 "zipUrl"      => sprintf("https://github.com/%s/raw/%s/plugins/%s/%s.zip", $slug, $sha, $name, $name),
@@ -110,8 +120,28 @@ case "${1:-}" in
         git commit -q -m "Publish $1 artifact" || true
         index
         git add plugins.json
-        git commit -q -m "Index $1 $(php -r '$d=json_decode(file_get_contents("plugins.json"),true); foreach($d["plugins"] as $p){ if($p["name"]===$argv[1]) echo $p["version"]; }' "$1")" || true
-        ok "released $1"
+        version="$(php -r '$d=json_decode(file_get_contents("plugins.json"),true); foreach($d["plugins"] as $p){ if($p["name"]===$argv[1]) echo $p["version"]; }' "$1")"
+        git commit -q -m "Index $1 $version" || true
+
+        # Tag the release so `name@<version>` in a marketplace `plugins` entry has
+        # something to resolve against. The plugin derives the archive URL by
+        # convention from this tag — plugins.json only ever describes the CURRENT
+        # version, so a pin to an older one has no index to read.
+        #
+        # Per-plugin, because one repo holds several and a bare v3.7.2 could not
+        # say whose. The tag must point at the commit whose tree holds that
+        # version's ZIP, which is this one — the index commit, after staging.
+        tag="$1-v$version"
+
+        if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            # Retagging would silently move a published version to different bytes,
+            # which is exactly the guarantee the SHA-pinned zipUrl exists to give.
+            die "tag $tag already exists — bump the version rather than republishing it"
+        fi
+
+        git tag -a "$tag" -m "$1 $version"
+        ok "released $1 $version (tagged $tag)"
+        warn "push with: git push && git push --tags"
         ;;
     -h|--help|"") sed -n '2,18p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//' ;;
     *) die "unknown command: $1" ;;
