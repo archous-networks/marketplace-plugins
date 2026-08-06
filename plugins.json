@@ -7,8 +7,8 @@
             "url": "https://github.com/archous-networks/marketplace",
             "version": "1.0.0",
             "author": "Ryan Spaeth",
-            "zipUrl": "https://github.com/archous-networks/marketplace-plugins/raw/1a97f875ff37fd5b7955a30a991a82419aa31234/plugins/marketplace/marketplace.zip",
-            "sha256": "ed75a5d2b6df9eadb4b0a69ae321d88a86d07884d55a0fab8a57694bf3ae89d2",
+            "zipUrl": "https://github.com/archous-networks/marketplace-plugins/raw/2cec31978472d2c47322f917c0f392eae853ded4/plugins/marketplace/marketplace.zip",
+            "sha256": "8879df828f354029b28b6680fa13245e25379a545b26d6e28d2abcc3065e1581",
             "unmsVersionCompliancy": {
                 "min": "1.0.0-beta7",
                 "max": null
@@ -21,7 +21,7 @@
             "url": "https://github.com/archous-networks/provisioner-v3",
             "version": "3.0.12",
             "author": "Ryan Spaeth",
-            "zipUrl": "https://github.com/archous-networks/marketplace-plugins/raw/1a97f875ff37fd5b7955a30a991a82419aa31234/plugins/provisioner-v3/provisioner-v3.zip",
+            "zipUrl": "https://github.com/archous-networks/marketplace-plugins/raw/2cec31978472d2c47322f917c0f392eae853ded4/plugins/provisioner-v3/provisioner-v3.zip",
             "sha256": "71ef71d6cc5ddcfba7cc52902a4c4387d85718ccde73b1c892d3a2fe1ec7c3e5",
             "unmsVersionCompliancy": {
                 "min": "1.0.0-beta7",
